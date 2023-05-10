@@ -1,10 +1,10 @@
 import "reflect-metadata"
 import "express-async-errors"
 import express from "express"
-import { usersRoutes } from "./routes/categories.routes";
 import { schedulesRoutes } from "./routes/schedule.routes";
 import { realEstateRoutes } from "./routes/realEstate.routes";
-import { categoriesRoutes } from "./routes/users.routes";
+import { categoriesRoutes } from "./routes/categories.routes";
+import { usersRoutes } from "./routes/users.routes";
 
 
 const app = express()

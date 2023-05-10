@@ -1,3 +1,3 @@
 import { Router } from "express";
 
-export const  categoriesRoutes:Router = Router()
+export const  usersRoutes:Router = Router()
