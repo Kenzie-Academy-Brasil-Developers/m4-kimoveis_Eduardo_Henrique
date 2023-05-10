@@ -7,8 +7,11 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToOne,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { Schedule } from "./scheduler.entity";
+import { getRounds, hashSync } from "bcryptjs";
 
 @Entity("users")
 export class User {
@@ -25,17 +28,31 @@ export class User {
   password: string;
 
   @Column({ type: "boolean", default: false })
-  admin: boolean | null | undefined;
+  admin: boolean;
 
   @CreateDateColumn({ type: "date" })
-  createdAt?: Date | string;
+  createdAt?: string;
 
   @UpdateDateColumn({ type: "date" })
-  updatedAt?: Date | string | null | undefined;
+  updatedAt?: string | null | undefined;
 
   @DeleteDateColumn({ type: "date", nullable: true })
-  deletedAt?: Date | string | null | undefined;
-  
-  @OneToMany(() => Schedule,(schedule)=>{schedule.user})
+  deletedAt?: string | null | undefined;
+
+  @OneToMany(() => Schedule,(schedule) => {schedule.user;})
   schedules: Schedule[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  standardizationOfLetters() {
+    this.name = this.name.toLowerCase();
+    this.email = this.email.toLowerCase();
+  }
+  hashPassword() {
+    const wasEncrypted = getRounds(this.password);
+    if (!wasEncrypted) {
+      this.password = hashSync(this.password, 10);
+    }
+  }
+
 }
