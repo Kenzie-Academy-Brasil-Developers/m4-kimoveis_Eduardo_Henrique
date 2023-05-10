@@ -21,3 +21,5 @@ export const userSchemaRequest = userSchema.omit({
 export const userSchemaResponse = userSchema.omit({
   password: true,
 });
+
+export const allUsersSchemaResponse = z.array(userSchemaResponse);

@@ -44,10 +44,6 @@ export class User {
 
   @BeforeInsert()
   @BeforeUpdate()
-  standardizationOfLetters() {
-    this.name = this.name.toLowerCase();
-    this.email = this.email.toLowerCase();
-  }
   hashPassword() {
     const wasEncrypted = getRounds(this.password);
     if (!wasEncrypted) {

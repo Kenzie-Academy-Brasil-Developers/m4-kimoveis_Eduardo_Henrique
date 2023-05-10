@@ -14,12 +14,12 @@ export const ensureEmailExists = async (
 
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
   const findUserByEmail = await userRepository.findOne({
-    where: { email: newUser.email.toLocaleLowerCase() },
+    where: { email: newUser.email },
   });
   console.log("USUARIO NOVO",newUser)
   console.log("USUARIO COM MESMO EMAIL",findUserByEmail)
   if (findUserByEmail) {
-    throw new AppError("Email already exist", 409);
+    throw new AppError("Email already exists", 409);
   } else {
     return next();
   }
