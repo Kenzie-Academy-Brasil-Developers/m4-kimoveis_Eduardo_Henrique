@@ -29,7 +29,7 @@ export class RealEstate {
     nullable: false,
     default: 0,
   })
-  value: number;
+  value: number | string;
 
   @Column({ type: "integer" })
   size: number;
