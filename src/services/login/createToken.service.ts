@@ -1,10 +1,10 @@
 import { Repository } from "typeorm";
-import { User } from "../entities";
-import { AppDataSource } from "../data-source";
-import { AppError } from "../error";
+import { User } from "../../entities";
+import { AppDataSource } from "../../data-source";
+import { AppError } from "../../error";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { TLoginRequest } from "../interfaces/login.interfaces";
+import { TLoginRequest } from "../../interfaces/login.interfaces";
 
 export const createTokenService = async (
   payload: TLoginRequest
@@ -13,7 +13,6 @@ export const createTokenService = async (
   const user: User | null = await userRepository.findOne({
     where: { email: payload.email },
   });
-  console.log(user);
   if (!user) {
     throw new AppError("Wrong email/password", 401);
   }
@@ -22,8 +21,7 @@ export const createTokenService = async (
     payload.password,
     user.password
   );
-  console.log(passwordValidate);
-  
+
   if (!passwordValidate) {
     throw new AppError("Wrong email/password", 401);
   }

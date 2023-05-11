@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TLoginRequest } from "../interfaces/login.interfaces";
-import { createTokenService } from "../services/createToken.service";
+import { createTokenService } from "../services/login/createToken.service";
 
 export const loginController = async (
   request: Request,
