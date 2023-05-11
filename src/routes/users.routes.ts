@@ -12,8 +12,8 @@ import {
 } from "../schemas/users.schemas";
 import { ensureEmailExists } from "../middleware/ensureEmailExists";
 import { ensureTokenIsValid } from "../middleware/ensureTokenIsValid";
+import { ensureIdExists } from "../middleware/ensureAll";
 import { ensureValidPermission } from "../middleware/ensureValidPermission";
-import { ensureIdExists } from "../middleware/ensureIdExists";
 
 export const usersRoutes: Router = Router();
 
@@ -23,12 +23,7 @@ usersRoutes.post(
   ensureEmailExists,
   createdUserController
 );
-usersRoutes.get(
-  "",
-  ensureTokenIsValid,
-  ensureValidPermission,
-  listAllUsersController
-);
+usersRoutes.get("", ensureTokenIsValid,ensureValidPermission , listAllUsersController);
 usersRoutes.patch(
   "/:id",
   ensureIdExists,

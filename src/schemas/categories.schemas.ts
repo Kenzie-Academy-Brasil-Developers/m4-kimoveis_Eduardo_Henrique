@@ -8,3 +8,5 @@ export const categoriesSchemaResponse = z.object({
 export const categoriesSchemaRequest = categoriesSchemaResponse.omit({
   id: true,
 });
+
+export const allCategoriesSchemasResponse = z.array(categoriesSchemaResponse);
