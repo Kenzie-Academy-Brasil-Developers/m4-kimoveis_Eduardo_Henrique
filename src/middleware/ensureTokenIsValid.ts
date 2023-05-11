@@ -17,8 +17,8 @@ export const ensureTokenIsValid = (
       throw new AppError(error.message, 401);
     }
     response.locals.idUser = decoded.sub;
-    response.locals.isAdmin = decoded.admin || false;
-  });
+    response.locals.isAdmin = decoded.isAdmin || false;
 
+  });
   return next();
 };

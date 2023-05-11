@@ -17,6 +17,13 @@ export const userSchemaRequest = userSchema.omit({
   updatedAt: true,
   deletedAt: true,
 });
+export const userUpdateSchemaRequest = userSchemaRequest
+  .pick({
+    name: true,
+    email: true,
+    password: true,
+  })
+  .partial();
 
 export const userSchemaResponse = userSchema.omit({
   password: true,
