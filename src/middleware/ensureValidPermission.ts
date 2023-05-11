@@ -8,11 +8,13 @@ export const ensureValidPermission = async (
   next: NextFunction
 ) => {
   const idUserParams: number = Number(request.params.id);
-  const admin: boolean = response.locals.isAdmin;
   const idUser: number = Number(response.locals.idUser);
+  const admin: boolean = response.locals.isAdmin;
+
   if (admin) {
-    return next();
-  } else if (idUser === idUserParams) {
+    return next()
+  }
+  if (idUser === idUserParams) {
     return next();
   }
   throw new AppError("Insufficient permission", 403);

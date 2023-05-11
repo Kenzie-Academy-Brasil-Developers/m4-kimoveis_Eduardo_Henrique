@@ -14,7 +14,7 @@ export const createTokenService = async (
     where: { email: payload.email },
   });
   if (!user) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const passwordValidate: boolean = await compare(
@@ -23,7 +23,7 @@ export const createTokenService = async (
   );
 
   if (!passwordValidate) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token = sign(
