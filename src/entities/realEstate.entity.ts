@@ -1,4 +1,5 @@
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -18,8 +19,8 @@ import { Category } from "./categories.entity";
 export class RealEstate {
   @PrimaryGeneratedColumn("increment")
   id: number;
-  
-  @Column({ type: "varchar" })
+
+  @Column({ type: "boolean", default: false })
   sold: boolean;
 
   @Column({
@@ -35,18 +36,17 @@ export class RealEstate {
   size: number;
 
   @CreateDateColumn({ type: "date" })
-  createdAt: Date | string;
+  createdAt: string;
 
   @UpdateDateColumn({ type: "date" })
-  updatedAt: Date | string;
-  
+  updatedAt: string;
+
   @OneToOne(() => Address, (address) => address.realEstate, { cascade: true })
   @JoinColumn()
   address: Address;
 
   @ManyToOne(() => Category, (category) => category.realEstates)
   category: Category;
-
 
   @OneToMany(() => Schedule, (schedule) => schedule.realEstate)
   schedules: Schedule[];
