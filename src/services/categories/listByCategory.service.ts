@@ -9,18 +9,15 @@ export const listByCategoryService = async (
 ): Promise<TRealEstateCategorySchema> => {
   const realRepository: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
-    console.log("Sou a idParams", idParams);
   const realEstate = await realRepository
     .createQueryBuilder("realEstate")
     .innerJoinAndSelect("realEstate.category", "category")
     .where("category.id = :idParams", { idParams })
     .getMany();
     
-  console.log("Sou o realEstate", realEstate);
   const returnRealEstate = realEstateCategorySchema.parse({
     category: realEstate[0].category,
     realEstate,
   });
-  console.log("sou o retorno",returnRealEstate)
   return returnRealEstate;
 };

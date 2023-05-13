@@ -19,7 +19,10 @@ export const realEstateRequest = z.object({
   address: AddressSchemaRequest,
   categoryId: z.number(),
 });
-
+export const realEstateScheduleResponse = realEstateSchema.omit({
+  address: true,
+  category: true,
+});
 export const realEstateCategorySchema = z.object({
   category: categoriesSchemaResponse,
   realEstate: z.array(
