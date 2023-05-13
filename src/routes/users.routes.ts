@@ -12,7 +12,7 @@ import {
 } from "../schemas/users.schemas";
 import { ensureEmailExists } from "../middleware/ensureEmailExists";
 import { ensureTokenIsValid } from "../middleware/ensureTokenIsValid";
-import { ensureIdExists } from "../middleware/ensureAll";
+import { ensureIdUserExists } from "../middleware/ensureIdUserExists";
 import { ensureValidPermission } from "../middleware/ensureValidPermission";
 
 export const usersRoutes: Router = Router();
@@ -26,7 +26,7 @@ usersRoutes.post(
 usersRoutes.get("", ensureTokenIsValid,ensureValidPermission , listAllUsersController);
 usersRoutes.patch(
   "/:id",
-  ensureIdExists,
+  ensureIdUserExists,
   ensureTokenIsValid,
   ensureValidPermission,
   ensureValidateBody(userUpdateSchemaRequest),
@@ -35,7 +35,7 @@ usersRoutes.patch(
 );
 usersRoutes.delete(
   "/:id",
-  ensureIdExists,
+  ensureIdUserExists,
   ensureTokenIsValid,
   ensureValidPermission,
   deleteUserController

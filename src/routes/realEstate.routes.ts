@@ -1,7 +1,10 @@
 import { Router } from "express";
-import { createRealEstateController } from "../controllers/realEstate.controller";
 import { ensureValidateBody } from "../middleware/ensureValidateBody";
 import { realEstateRequest} from "../schemas/realEstate.schemas";
+import { createRealEstateController } from "../controllers/realEstate.controller";
+import { ensureValidPermission } from "../middleware/ensureValidPermission";
+import { ensureTokenIsValid } from "../middleware/ensureTokenIsValid";
+import { ensureRealEstateExistAddress } from "../middleware/ensureRealEstateExistAddress";
 
 export const  realEstateRoutes:Router = Router()
-realEstateRoutes.post("",ensureValidateBody(realEstateRequest),createRealEstateController)
+realEstateRoutes.post("",ensureTokenIsValid, ensureValidPermission,ensureValidateBody(realEstateRequest),ensureRealEstateExistAddress, createRealEstateController)

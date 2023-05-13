@@ -16,7 +16,6 @@ export const ensureTokenIsValid = (
     if (error) {
       throw new AppError(error.message, 401);
     }
-    console.log(decoded)
     response.locals.idUser = decoded.sub;
     response.locals.isAdmin = decoded.admin || false;
 

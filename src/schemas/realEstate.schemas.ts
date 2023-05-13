@@ -1,45 +1,31 @@
 import { z } from "zod";
 import { AddressSchemaRequest, addressSchemaResponse } from "./address.schemas";
-import {
-  categoriesSchemaRequest,
-  categoriesSchemaResponse,
-} from "./categories.schemas";
+import { categoriesSchemaResponse } from "./categories.schemas";
 
 export const realEstateSchema = z.object({
+  createdAt: z.string(),
   id: z.number(),
   sold: z.boolean().default(false),
-  value: z.number().or(z.string()).default(0),
   size: z.number().int(),
-  createdAt: z.string(),
   updatedAt: z.string(),
-  address:addressSchemaResponse,
+  value: z.number().or(z.string()).default(0),
+  address: addressSchemaResponse,
   category: categoriesSchemaResponse,
 });
 
 export const realEstateRequest = z.object({
   value: z.number().or(z.string()).default(0),
-  size: z.number().int(),
-  address:AddressSchemaRequest,
-  categoryId:z.number()
-})
+  size: z.number().int().gt(0, "Number must be greater than 0"),
+  address: AddressSchemaRequest,
+  categoryId: z.number(),
+});
 
-// export const realEstateSchemaResponse = realEstateSchema.extend({
-//   address: addressSchemaResponse,
-//   category: categoriesSchemaResponse,
-// });
-
-// export const realEstateSchemaRequest = realEstateSchema
-//   .omit({
-//     id: true,
-//     createdAt: true,
-//     updatedAt: true,
-//     sold: true,
-//     categoryId: true,
-//   })
-//   .extend({
-//     address: AddressSchemaRequest,
-//   });
-
-// export const realEstateWithoutAddressSchema = realEstateSchemaRequest.omit({
-//   address: true,
-// });
+export const realEstateCategorySchema = z.object({
+  category: categoriesSchemaResponse,
+  realEstate: z.array(
+    realEstateSchema.omit({
+      address: true,
+      category: true,
+    })
+  ),
+});

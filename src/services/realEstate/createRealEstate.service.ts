@@ -32,12 +32,10 @@ export const createRealEstateService = async (
     address: newAddress,
     category: findCategory!,
   });
-  console.log("novoRealEstate",createRealEstate)
   const newRealEstate:any = await realRepository.save(createRealEstate);
   
   const returnRealEstate: TRealEstateResponse =
   realEstateSchema.parse(newRealEstate);
-  console.log("retorn",createRealEstate)
 
   return returnRealEstate;
 };
