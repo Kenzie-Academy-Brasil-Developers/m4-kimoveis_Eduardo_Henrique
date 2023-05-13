@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../error";
 
-export const ensureIdExists = async (
+export const ensureIdUserExists = async (
   request: Request,
   response: Response,
   next: NextFunction
