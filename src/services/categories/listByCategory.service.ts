@@ -14,10 +14,12 @@ export const listByCategoryService = async (
     .innerJoinAndSelect("realEstate.category", "category")
     .where("category.id = :idParams", { idParams })
     .getMany();
-    
-  const returnRealEstate = realEstateCategorySchema.parse({
-    category: realEstate[0].category,
-    realEstate,
-  });
+
+  const returnRealEstate: TRealEstateCategorySchema =
+    realEstateCategorySchema.parse({
+      category: realEstate[0].category,
+      realEstate,
+    });
+
   return returnRealEstate;
 };

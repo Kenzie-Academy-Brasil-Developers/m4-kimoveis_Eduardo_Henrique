@@ -1,14 +1,15 @@
 import { z } from "zod";
 import { AddressSchemaRequest, addressSchemaResponse } from "./address.schemas";
 import { categoriesSchemaResponse } from "./categories.schemas";
+import { userSchema } from "./users.schemas";
 
 export const realEstateSchema = z.object({
-  createdAt: z.string(),
   id: z.number(),
   sold: z.boolean().default(false),
-  size: z.number().int(),
-  updatedAt: z.string(),
   value: z.number().or(z.string()).default(0),
+  size: z.number().int(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   address: addressSchemaResponse,
   category: categoriesSchemaResponse,
 });
@@ -19,10 +20,12 @@ export const realEstateRequest = z.object({
   address: AddressSchemaRequest,
   categoryId: z.number(),
 });
+
 export const realEstateScheduleResponse = realEstateSchema.omit({
   address: true,
   category: true,
 });
+
 export const realEstateCategorySchema = z.object({
   category: categoriesSchemaResponse,
   realEstate: z.array(
@@ -31,4 +34,8 @@ export const realEstateCategorySchema = z.object({
       category: true,
     })
   ),
+});
+
+export const realEstatesSchemaResponse = realEstateSchema.extend({
+  address: addressSchemaResponse,
 });
