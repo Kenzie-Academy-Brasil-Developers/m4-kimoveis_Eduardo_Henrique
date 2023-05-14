@@ -9,7 +9,11 @@ export const ensureRealEstateIdExist = async (
   response: Response,
   next: NextFunction
 ) => {
-  const idReal = request.body.realEstateId;
+  let idReal = request.body.realEstateId;
+  const method = request.method;
+  if (method == "GET") {
+    idReal = request.params.id;
+  }
   const realRepository: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
   const findRealEstate = await realRepository.findOne({

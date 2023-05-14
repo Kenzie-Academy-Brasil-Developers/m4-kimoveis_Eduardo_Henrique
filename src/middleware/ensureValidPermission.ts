@@ -10,9 +10,8 @@ export const ensureValidPermission = async (
   const idUserParams: number = Number(request.params.id);
   const idUser: number = Number(response.locals.idUser);
   const admin: boolean = response.locals.isAdmin;
-
   if (admin) {
-    return next()
+    return next();
   }
   if (idUser === idUserParams) {
     return next();

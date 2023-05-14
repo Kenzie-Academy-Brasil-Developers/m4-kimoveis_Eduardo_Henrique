@@ -4,7 +4,10 @@ import { AppDataSource } from "../../data-source";
 import { scheduleSchema } from "../../schemas/schedules.schemas";
 import { TScheduleResponse } from "../../interfaces/schedule.interface";
 
-export const createScheduleService = async (payload: any, idUser: number) => {
+export const createScheduleService = async (
+  payload: any,
+  idUser: number
+): Promise<TScheduleResponse> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const realRepository: Repository<RealEstate> =
@@ -27,6 +30,6 @@ export const createScheduleService = async (payload: any, idUser: number) => {
   const schedule = await scheduleRepository.save(createSchedule);
 
   const returnSchedule: TScheduleResponse = scheduleSchema.parse(schedule);
-  
+
   return returnSchedule;
 };
