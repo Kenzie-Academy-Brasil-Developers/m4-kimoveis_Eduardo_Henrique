@@ -9,7 +9,6 @@ export const ensureScheduleRealEstateExist = async (
   response: Response,
   next: NextFunction
 ) => {
-  //fazer a busca do realEstate e retornar um array de users
   const scheduleRepository: Repository<Schedule> =
     AppDataSource.getRepository(Schedule);
   const realEstateId = request.body.realEstateId;

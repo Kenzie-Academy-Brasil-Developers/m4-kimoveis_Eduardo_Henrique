@@ -13,7 +13,5 @@ export const listRealEstate = async (): Promise<TRealEstatesResponse[]> => {
     .getMany();
     
     const returnRealEstate: TRealEstatesResponse[] = realEstate;
-    console.log("oi")
-    console.log(realEstate);
   return returnRealEstate;
 };
